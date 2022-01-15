@@ -1,0 +1,153 @@
+.single-for-all-the-reasons-item {
+	margin-bottom: 30px;
+	padding-right: 50px;
+    
+	img {
+		margin-bottom: 25px;
+	}
+	h3 {
+		margin-bottom: 15px;
+		font-size: 20px;
+	}
+}
+.register-now {
+	background-color: var(--whiteColor);
+	box-shadow: var(--boxShadow);
+	margin-right: 15px;
+
+	.register-title {
+		background-color: var(--primaryColor);
+		padding: 30px;
+
+		h2 {
+			font-size: 35px;
+			color: var(--whiteColor);
+		}
+		p {
+			color: var(--whiteColor);
+		}
+	}
+	form {
+		background-color: var(--whiteColor);
+		padding: 30px;
+
+		.form-group {
+			margin-bottom: 30px;
+		}
+		.default-btn {
+			width: 100%;
+			padding: {
+				top: 14px;
+				bottom: 14px;
+			};
+		}
+	}
+}
+.become-instructors {
+	margin-left: 15px;
+
+	h3 {
+		font-size: 20px;
+		margin-bottom: 15px;
+	}
+	p {
+		font-size: 15px;
+	}
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+
+    .register-now {
+		margin-right: 0;
+
+        .register-title {
+            padding: 20px;
+			
+            h2 {
+                font-size: 23px;
+            }
+        }
+        form {
+            padding: 20px;
+
+			.form-group {
+				margin-bottom: 20px;
+			}
+        }
+    }
+    .become-instructors {
+		margin: {
+			top: 30px;
+			left: 0;
+		};
+		h3 {
+			font-size: 17px;
+			margin-bottom: 12px;
+		}
+		p {
+			font-size: 14px;
+		}
+    }
+    .single-for-all-the-reasons-item {
+        box-shadow: var(--boxShadow);
+        padding: 20px;
+
+		h3 {
+			font-size: 18px;
+		}
+    }
+
+}
+
+/* Min width 576px to Max width 767px */
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+
+/* Min width 768px to Max width 991px */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+	.register-now {
+		margin: {
+			right: 0;
+			bottom: 30px;
+		};
+        .register-title {
+            padding: 20px;
+
+            h2 {
+                font-size: 25px;
+            }
+        }
+        form {
+            padding: 20px;
+        }
+    }
+	.become-instructors {
+		margin-left: 0;
+	}
+
+}
+
+/* Min width 992px to Max width 1199px */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+	.become-instructors {
+        .tab {
+            .tabs {
+                li {
+                    padding: {
+                        left: 29px;
+                        right: 29px;
+                    };
+                }
+            }
+        }
+    }
+
+}
+
+/* Min width 1200px to Max width 1399px */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+
+/* Min width 1550px */
+@media only screen and (min-width: 1550px) {}
