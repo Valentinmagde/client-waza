@@ -18,18 +18,24 @@
     <div class="container">
         <div class="user-form-content log-in-width">
             <h3>Se connecter</h3>
-            <form class="user-form">
+            <form class="user-form" [formGroup]="signInForm" #signInNgForm="ngForm">
                 <div class="row">
                     <div class="col-lg-12 col-md--12">
                         <div class="form-group">
                             <label>Nom d'utilisateur ou email *</label>
-                            <input class="form-control" type="text" name="name">
+                            <input 
+                                class="form-control" 
+                                type="text"
+                                [formControlName]="'userName'">
                         </div>
                     </div>
                     <div class="col-lg-12 col-md--12">
                         <div class="form-group">
                             <label>Mot de passe *</label>
-                            <input class="form-control" type="password" name="password">
+                            <input 
+                                class="form-control" 
+                                type="password" 
+                                [formControlName]="'password'">
                         </div>
                     </div>
                     <div class="col-lg-12 col-md--12">
@@ -42,7 +48,12 @@
                         </div>
                     </div>
                     <div class="col-lg-12 col-md--12">
-                        <button class="default-btn" type="submit">Se connecter</button>
+                        <button 
+                            class="default-btn"
+                            [disabled]="signInForm.disabled" 
+                            (click)="signIn()">
+                            Se connecter
+                        </button>
                     </div>
                     <div class="col-lg-12 col-md--12">
                         <span class="or">Ou se connecter avec </span>

@@ -78,6 +78,53 @@ import { InstructorEarningsComponent } from './modules/instructor-dashboard/inst
 import { InstructorWithdrawComponent } from './modules/instructor-dashboard/instructor-withdraw/instructor-withdraw.component';
 import { InstructorSettingsComponent } from './modules/instructor-dashboard/instructor-settings/instructor-settings.component';
 import { InstructorStudentsComponent } from './modules/instructor-dashboard/instructor-students/instructor-students.component';
+import { CoreModule } from './core/core.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
+
+/**
+ * Custom angular notifier options
+ */
+ const customNotifierOptions: NotifierOptions = {
+    position: {
+          horizontal: {
+              position: 'right',
+              distance: 12
+          },
+          vertical: {
+              position: 'top',
+              distance: 12,
+              gap: 10
+          }
+      },
+    theme: 'material',
+    behaviour: {
+      autoHide: 5000,
+      onClick: 'hide',
+      onMouseover: 'pauseAutoHide',
+      showDismissButton: true,
+      stacking: 4
+    },
+    animations: {
+      enabled: true,
+      show: {
+        preset: 'slide',
+        speed: 300,
+        easing: 'ease'
+      },
+      hide: {
+        preset: 'fade',
+        speed: 300,
+        easing: 'ease',
+        offset: 50
+      },
+      shift: {
+        speed: 300,
+        easing: 'ease'
+      },
+      overlap: 150
+    }
+  };
 
 @NgModule({
     declarations: [
@@ -161,7 +208,15 @@ import { InstructorStudentsComponent } from './modules/instructor-dashboard/inst
         NgxScrollTopModule,
         StickyNavModule,
         CountUpModule,
-        AccordionModule
+        NotifierModule.withConfig(customNotifierOptions),
+
+        // Core module of your application
+        CoreModule,
+
+        AccordionModule,
+
+        // Roles and permissions modules
+        NgxPermissionsModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -337,8 +337,8 @@
 	}
 }
 
-@import "../../common/courses/courses.component.scss";
-@import "../../common/widget-sidebar/widget-sidebar.component.scss";
+@import "../../../layout/common/courses/courses.component.scss";
+@import "../../../layout/common/widget-sidebar/widget-sidebar.component.scss";
 
 /* Max width 767px */
 @media only screen and (max-width: 767px) {

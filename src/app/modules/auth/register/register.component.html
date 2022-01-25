@@ -4,10 +4,10 @@
 <div class="page-banner-area ptb-100">
     <div class="container">
         <div class="page-content">
-            <h2>Create Your Account</h2>
+            <h2>Créez votre compte</h2>
             <ul class="pages-link">
-                <li><a routerLink="/">Home</a></li>
-                <li class="active">Register</li>
+                <li><a routerLink="/">Accueil</a></li>
+                <li class="active">Inscription</li>
             </ul>
         </div>
     </div>
@@ -17,46 +17,155 @@
 <div class="user-area ptb-100">
     <div class="container">
         <div class="user-form-content register-width">
-            <h3>Register</h3>
-            <form class="user-form">
+            <notifier-container></notifier-container>
+            <h3>S'inscrire</h3>
+            <form class="user-form" [formGroup]="signUpForm" #signUpNgForm="ngForm">
                 <div class="row">
                     <div class="col-12 col-md-12">
                         <div class="form-group">
-                            <label>Username *</label>
-                            <input class="form-control" type="text" name="name">
+                            <label>Nom et prénom *</label>
+                            <input 
+                                class="form-control" 
+                                type="text"
+                                id="firstName"
+                                [formControlName]="'firstName'">
+                            <div *ngIf="signUpForm.controls['firstName'].invalid && signUpForm.controls['firstName'].touched"
+                                class="text-danger">
+                                <div *ngIf="signUpForm.controls['firstName'].hasError('required')">
+                                    Le nom est obligatoire
+                                  </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="form-group">
-                            <label>Email Address *</label>
-                            <input class="form-control" type="email" name="email">
+                            <label>Nom d'utilisateur *</label>
+                            <input 
+                                class="form-control" 
+                                type="text" 
+                                [formControlName]="'userName'">
+                            <div *ngIf="signUpForm.controls['userName'].invalid && signUpForm.controls['userName'].touched"
+                                class="text-danger">
+                                <div *ngIf="signUpForm.controls['userName'].hasError('required')">
+                                    Le nom d'utilisateur est obligatoire
+                                  </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="form-group">
-                            <label>Password *</label>
-                            <input class="form-control" type="password" name="password">
+                            <label>Type de compte *</label>
+                            <select 
+                                class="form-control form-select" 
+                                aria-label="Default select example"
+                                [formControlName]="'type'"
+                                (change)="updateForm()">
+                                <option value="ELEVE">Élève</option>
+                                <option value="PARENT">Parent</option>
+                            </select>
+                            <div *ngIf="signUpForm.controls['type'].invalid && signUpForm.controls['type'].touched"
+                                class="text-danger">
+                                <div *ngIf="signUpForm.controls['type'].hasError('required')">
+                                    Le type de compte est obligatoire
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="signUpForm.controls['type'].value === 'ELEVE'">
+                        <div class="col-12 col-md-12">
+                            <div class="form-group">
+                                <label>Classe *</label>
+                                <select 
+                                    class="form-control form-select" 
+                                    placeholder="Default select example"
+                                    [formControlName]="'level'">
+                                    <option value="6">6e</option>
+                                    <option value="5">5e</option>
+                                    <option value="4">4e</option>
+                                    <option value="3">3e</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="form-group">
+                                <label>Date de naissance *</label>
+                                <input 
+                                    class="form-control" 
+                                    type="date" 
+                                    [formControlName]="'birthday'">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="form-group">
+                                <label>Établissement *</label>
+                                <input 
+                                    class="form-control" 
+                                    type="text"
+                                    [formControlName]="'currentSchool'">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="form-group">
+                                <label>Adresse e-mail du parent</label>
+                                <input 
+                                    class="form-control" 
+                                    type="email" 
+                                    [formControlName]="'parentEmail'">
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="signUpForm.controls['type'].value === 'PARENT'">
+                        <div class="col-12 col-md-12">
+                            <div class="form-group">
+                                <label>Adresse e-mail *</label>
+                                <input 
+                                    class="form-control" 
+                                    type="email" 
+                                    [formControlName]="'email'">
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            <label>Mot de passe *</label>
+                            <input 
+                                class="form-control" 
+                                type="password" 
+                                [formControlName]="'password'">
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="form-group">
-                            <label>Confirm Password *</label>
-                            <input class="form-control" type="password" name="repeat-password">
+                            <label>Confirmer le mot de passe *</label>
+                            <input 
+                                class="form-control" 
+                                type="password" 
+                                [formControlName]="'passwordConfirm'">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                value="" 
+                                id="flexCheckDefault"
+                                [formControlName]="'agreements'">
                             <label class="form-check-label mb-0" for="flexCheckDefault">
-                                Accept the <a routerLink="/terms-conditions">Terms</a> and <a routerLink="/privacy-policy">Privacy Policy</a>
+                                J'accepte les <a routerLink="/terms-conditions">conditions</a> et la <a routerLink="/privacy-policy">politique de confidentialité</a>
                             </label>
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
-                        <button class="default-btn register" type="submit">Register</button>
+                        <button 
+                            class="default-btn"
+                            [disabled]="signUpForm.disabled || signUpForm.invalid"
+                            (click)="signUp()">
+                                S'inscrire
+                        </button>
                     </div>
                     <div class="col-12 col-md-12">
-                        <span class="or">Or Log in with</span>
+                        <span class="or">Ou s'inscrire avec</span>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <button type="button" class="or-login facebook">Facebook</button>
@@ -65,7 +174,7 @@
                         <button type="button" class="or-login google">Google</button>
                     </div>
                     <div class="col-12 col-md-12">
-                        <p class="create">Already have an account? <a routerLink="/login">Log In</a></p>
+                        <p class="create">Vous avez déjà un compte? <a routerLink="/login">Se connecter</a></p>
                     </div>
                 </div>
             </form>

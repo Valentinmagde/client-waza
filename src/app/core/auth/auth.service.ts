@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
-import { AuthUtils } from 'app/core/auth/auth.utils';
-import { UserService } from 'app/core/user/user.service';
+import { from, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { AuthUtils } from './auth.utils';
+// import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { UserService } from '../user/user.service';
 
 @Injectable()
-export class AuthService
-{
+export class AuthService {
     private _authenticated: boolean = false;
 
     /**
@@ -15,9 +15,9 @@ export class AuthService
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
-    )
-    {
+        private _userService: UserService,
+        // private _socialAuthService: SocialAuthService
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -27,13 +27,11 @@ export class AuthService
     /**
      * Setter & getter for access token
      */
-    set accessToken(token: string)
-    {
+    set accessToken(token: string) {
         localStorage.setItem('accessToken', token);
     }
 
-    get accessToken(): string
-    {
+    get accessToken(): string {
         return localStorage.getItem('accessToken') ?? '';
     }
 
@@ -46,9 +44,8 @@ export class AuthService
      *
      * @param email
      */
-    forgotPassword(email: string): Observable<any>
-    {
-        return this._httpClient.post('api/auth/forgot-password', email);
+    forgotPassword(phone: string): Observable<any> {
+        return this._httpClient.post('api/user/forgot/password', { phone });
     }
 
     /**
@@ -56,8 +53,7 @@ export class AuthService
      *
      * @param password
      */
-    resetPassword(password: string): Observable<any>
-    {
+    resetPassword(password: string): Observable<any> {
         return this._httpClient.post('api/auth/reset-password', password);
     }
 
@@ -66,70 +62,71 @@ export class AuthService
      *
      * @param credentials
      */
-    signIn(credentials: { email: string; password: string }): Observable<any>
-    {
+    signIn(credentials: { userName: string; password: string }): Observable<any> {
         // Throw error, if the user is already logged in
-        if ( this._authenticated )
-        {
+        if (this._authenticated) {
             return throwError('User is already logged in.');
         }
 
-        return this._httpClient.post('api/auth/sign-in', credentials).pipe(
-            switchMap((response: any) => {
-
+        return this._httpClient.post('api/auth/login', credentials, { withCredentials: false }).pipe(
+            switchMap((response: any)=>{
+                console.log(response);
                 // Store the access token in the local storage
-                this.accessToken = response.accessToken;
+                this.accessToken = response.access_token;
 
                 // Set the authenticated flag to true
                 this._authenticated = true;
 
                 // Store the user on the user service
                 this._userService.user = response.user;
-
-                // Return a new observable with the response
+                
                 return of(response);
-            })
+            }),
         );
     }
 
     /**
      * Sign in using the access token
      */
-    signInUsingToken(): Observable<any>
-    {
+    signInUsingToken(): Observable<any> {
         // Renew token
-        return this._httpClient.post('api/auth/refresh-access-token', {
-            accessToken: this.accessToken
-        }).pipe(
-            catchError(() =>
+        return this._httpClient.post('api/user/refresh/token', {}, { withCredentials: false })
+            .pipe(
+                catchError(() =>
 
-                // Return false
-                of(false)
-            ),
-            switchMap((response: any) => {
+                    // Return false
+                    of(false)
+                ),
+                switchMap(({ user, token }: any) => {
 
-                // Store the access token in the local storage
-                this.accessToken = response.accessToken;
+                    // Store the access token in the local storage
+                    this.accessToken = token;
 
-                // Set the authenticated flag to true
-                this._authenticated = true;
+                    // Set the authenticated flag to true
+                    this._authenticated = true;
 
-                // Store the user on the user service
-                this._userService.user = response.user;
+                    // Store the user on the user service
+                    this._userService.user = user;
 
-                // Return true
-                return of(true);
-            })
-        );
+                    // Return true
+                    return of(true);
+                })
+            );
     }
 
     /**
      * Sign out
      */
-    signOut(): Observable<any>
-    {
+    signOut(): Observable<any> {
         // Remove the access token from the local storage
         localStorage.removeItem('accessToken');
+
+        // Sign out from all social accounts
+        // this._socialAuthService.authState.subscribe((user) => {
+        //     if (user) {
+        //         this._socialAuthService.signOut(true).catch();
+        //     }
+        // });
 
         // Set the authenticated flag to false
         this._authenticated = false;
@@ -143,9 +140,8 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
-    {
-        return this._httpClient.post('api/auth/sign-up', user);
+    signUp(user: any): Observable<any> {
+        return this._httpClient.post('api/users', user);
     }
 
     /**
@@ -153,35 +149,90 @@ export class AuthService
      *
      * @param credentials
      */
-    unlockSession(credentials: { email: string; password: string }): Observable<any>
-    {
+    unlockSession(credentials: { email: string; password: string }): Observable<any> {
         return this._httpClient.post('api/auth/unlock-session', credentials);
     }
 
     /**
      * Check the authentication status
      */
-    check(): Observable<boolean>
-    {
+    check(): Observable<boolean> {
         // Check if the user is logged in
-        if ( this._authenticated )
-        {
+        if (this._authenticated) {
             return of(true);
         }
 
         // Check the access token availability
-        if ( !this.accessToken )
-        {
+        if (!this.accessToken) {
             return of(false);
         }
 
         // Check the access token expire date
-        if ( AuthUtils.isTokenExpired(this.accessToken) )
-        {
+        if (AuthUtils.isTokenExpired(this.accessToken)) {
             return of(false);
         }
 
         // If the access token exists and it didn't expire, sign in using it
         return this.signInUsingToken();
     }
+
+    /**
+     * Activate user account
+     *
+     * @param payload
+     */
+    activateAccount(payload: { activationCode: string; phone: string }): Observable<any> {
+        return this._httpClient.post('api/user/activate', payload);
+    }
+
+    /**
+     * Resend actuvation code
+     *
+     * @param phone
+     */
+    resendActivationCode(phone: { phone: string }): Observable<any> {
+        return this._httpClient.post('api/user/resend/code', phone);
+    }
+
+    /**
+     * Sign in with social: Google, Facebook or Apple
+     */
+    // signInWithSocial(providerId: string): Observable<any> {
+    //     return from(this._socialAuthService.signIn(providerId)).pipe(
+    //         catchError(() =>
+
+    //             of(false)
+    //         ),
+    //         switchMap((socialUser: SocialUser) => {
+
+    //             if (socialUser) {
+    //                 const loginData = {
+    //                     firstName: socialUser.firstName || '',
+    //                     lastName: socialUser.lastName || '',
+    //                     email: socialUser.email,
+    //                     phone: '',
+    //                     source: socialUser.provider,
+    //                     profile: socialUser.photoUrl || ''
+    //                 };
+
+    //                 return this._httpClient.post('api/user/social/login', loginData, { withCredentials: true }).pipe(
+    //                     catchError(() =>
+
+    //                         of(false)
+    //                     ),
+    //                     switchMap(({ token, user }: any) => {
+
+    //                         this.accessToken = token;
+    //                         this._authenticated = true;
+    //                         this._userService.user = user;
+
+    //                         return of(true);
+    //                     })
+    //                 );
+    //             }
+
+    //             return of(false);
+    //         }
+    //     ));
+    // }
 }
