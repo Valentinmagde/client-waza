@@ -28,7 +28,8 @@
                                 class="form-control" 
                                 type="text"
                                 id="firstName"
-                                [formControlName]="'firstName'">
+                                [formControlName]="'firstName'"
+                                placeholder="Vueillez saisir votre nom complet">
                             <div *ngIf="signUpForm.controls['firstName'].invalid && signUpForm.controls['firstName'].touched"
                                 class="text-danger">
                                 <div *ngIf="signUpForm.controls['firstName'].hasError('required')">
@@ -43,7 +44,8 @@
                             <input 
                                 class="form-control" 
                                 type="text" 
-                                [formControlName]="'userName'">
+                                [formControlName]="'userName'"
+                                placeholder="Vueillez saisir votre nom d'utilisateur">
                             <div *ngIf="signUpForm.controls['userName'].invalid && signUpForm.controls['userName'].touched"
                                 class="text-danger">
                                 <div *ngIf="signUpForm.controls['userName'].hasError('required')">
@@ -56,10 +58,11 @@
                         <div class="form-group">
                             <label>Type de compte *</label>
                             <select 
-                                class="form-control form-select" 
+                                class="form-select form-control" 
                                 aria-label="Default select example"
                                 [formControlName]="'type'"
                                 (change)="updateForm()">
+                                <option value="" disabled selected>Selectionnez un type de compte</option>
                                 <option value="ELEVE">Élève</option>
                                 <option value="PARENT">Parent</option>
                             </select>
@@ -77,13 +80,21 @@
                                 <label>Classe *</label>
                                 <select 
                                     class="form-control form-select" 
-                                    placeholder="Default select example"
+                                    aria-label="Default select example"
                                     [formControlName]="'level'">
-                                    <option value="6">6e</option>
-                                    <option value="5">5e</option>
-                                    <option value="4">4e</option>
-                                    <option value="3">3e</option>
+                                    <option value="" disabled selected>Selectionnez une classe</option>
+                                    <ng-container *ngIf="(classes$ |async) as classes">
+                                        <ng-container *ngFor="let class of classes">
+                                            <option [value]="'class.id'">{{class.title}}</option>
+                                        </ng-container>
+                                    </ng-container>
                                 </select>
+                                <div *ngIf="signUpForm.controls['level'].invalid && signUpForm.controls['level'].touched"
+                                class="text-danger">
+                                    <div *ngIf="signUpForm.controls['level'].hasError('required')">
+                                        La classe est obligatoire
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-12">
@@ -93,15 +104,34 @@
                                     class="form-control" 
                                     type="date" 
                                     [formControlName]="'birthday'">
+                                <div *ngIf="signUpForm.controls['birthday'].invalid && signUpForm.controls['birthday'].touched"
+                                    class="text-danger">
+                                    <div *ngIf="signUpForm.controls['birthday'].hasError('required')">
+                                        La datate de naissance est obligatoire
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-12">
                             <div class="form-group">
                                 <label>Établissement *</label>
-                                <input 
-                                    class="form-control" 
-                                    type="text"
+                                <select 
+                                    class="form-control form-select" 
+                                    aria-label="Default select example"
                                     [formControlName]="'currentSchool'">
+                                    <option value="" disabled selected>Selectionnez votre école</option>
+                                    <ng-container *ngIf="(schools$ |async) as schools">
+                                        <ng-container *ngFor="let school of schools">
+                                            <option [value]="'school.id'">{{school.name}}</option>
+                                        </ng-container>
+                                    </ng-container>
+                                </select>
+                                <div *ngIf="signUpForm.controls['currentSchool'].invalid && signUpForm.controls['currentSchool'].touched"
+                                    class="text-danger">
+                                    <div *ngIf="signUpForm.controls['currentSchool'].hasError('required')">
+                                        L'école est obligatoire
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-12">
@@ -110,7 +140,17 @@
                                 <input 
                                     class="form-control" 
                                     type="email" 
-                                    [formControlName]="'parentEmail'">
+                                    [formControlName]="'parentEmail'"
+                                    placeholder="Vueillez saisir l'adresse email de votre parent">
+                                <div *ngIf="signUpForm.controls['parentEmail'].invalid && signUpForm.controls['parentEmail'].touched"
+                                    class="text-danger">
+                                    <div *ngIf="signUpForm.controls['parentEmail'].hasError('required')">
+                                        L'adresse e-mail du parent est obligatoire
+                                    </div>
+                                    <div *ngIf="signUpForm.controls['parentEmail'].hasError('email')">
+                                        Vueillez saisir un e-mail valide
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </ng-container>
@@ -121,7 +161,17 @@
                                 <input 
                                     class="form-control" 
                                     type="email" 
-                                    [formControlName]="'email'">
+                                    [formControlName]="'email'"
+                                    placeholder="Vueillez saisir votre adresse email">
+                                <div *ngIf="signUpForm.controls['email'].invalid && signUpForm.controls['email'].touched"
+                                    class="text-danger">
+                                    <div *ngIf="signUpForm.controls['email'].hasError('required')">
+                                        L'adresse e-mail est obligatoire
+                                    </div>
+                                    <div *ngIf="signUpForm.controls['email'].hasError('email')">
+                                        Vueillez saisir un e-mail valide
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </ng-container>
@@ -131,7 +181,17 @@
                             <input 
                                 class="form-control" 
                                 type="password" 
-                                [formControlName]="'password'">
+                                [formControlName]="'password'"
+                                placeholder="Vueillez saisir votre mot de passe">
+                            <div *ngIf="signUpForm.controls['password'].invalid && signUpForm.controls['password'].touched"
+                                class="text-danger">
+                                <div *ngIf="signUpForm.controls['password'].hasError('required')">
+                                    Le mot de passe est obligatoire
+                                </div>
+                                <div *ngIf="signUpForm.controls['password'].hasError('minlength')">
+                                    Le mot de passe doit avoir minimum 6 caractères
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
@@ -140,7 +200,17 @@
                             <input 
                                 class="form-control" 
                                 type="password" 
-                                [formControlName]="'passwordConfirm'">
+                                [formControlName]="'passwordConfirm'"
+                                placeholder="Vueillez saisir à nouveau votre mot de passe">
+                            <div *ngIf="signUpForm.controls['passwordConfirm'].invalid && signUpForm.controls['passwordConfirm'].touched"
+                                class="text-danger">
+                                <div *ngIf="signUpForm.controls['passwordConfirm'].hasError('required')">
+                                    La confirmation du mot de passe est requise
+                                </div>
+                                <div *ngIf="signUpForm.controls['passwordConfirm'].hasError('mustMatch')">
+                                    Les mots de passe doivent correspondre
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -159,6 +229,7 @@
                     <div class="col-12 col-md-12">
                         <button 
                             class="default-btn"
+                            [ngClass]="{'disable' : signUpForm.disabled || signUpForm.invalid}"
                             [disabled]="signUpForm.disabled || signUpForm.invalid"
                             (click)="signUp()">
                                 S'inscrire

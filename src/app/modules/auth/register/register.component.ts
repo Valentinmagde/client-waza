@@ -1,9 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { NotifierService } from 'angular-notifier';
-import { timer } from 'rxjs';
+import { Observable, timer } from 'rxjs';
+
+// import custom validator  class
+import { CustomValidators } from 'src/app/providers/CustomValidators';
+import { Classes } from 'src/app/core/classes/classes.types';
+import { Schools } from 'src/app/core/schools/schools.types';
+import { ClassesService } from 'src/app/core/classes/classes.service';
+import { SchoolsService } from 'src/app/core/schools/schools.service';
 
 @Component({
   selector: 'app-register-page',
@@ -16,6 +23,8 @@ export class RegisterPageComponent implements OnInit {
 
   signUpForm: FormGroup = new FormGroup({});
   showAlert: boolean = false;
+  classes$: Observable<Classes[]> = Observable.create();
+  schools$: Observable<Schools[]> = Observable.create();
   private readonly notifier: NotifierService;
 
   /**
@@ -25,7 +34,9 @@ export class RegisterPageComponent implements OnInit {
       private _authService: AuthService,
       private _formBuilder: FormBuilder,
       private _router: Router,
-      notifierService: NotifierService
+      notifierService: NotifierService,
+      private _classesService: ClassesService,
+      private _schoolsService: SchoolsService
   )
   {
     this.notifier = notifierService;
@@ -49,13 +60,26 @@ export class RegisterPageComponent implements OnInit {
               level            : ['', Validators.required],
               birthday         : ['', Validators.required],
               currentSchool    : ['', Validators.required],
-              parentEmail      : ['', Validators.required],
-              email            : ['', Validators.required],
-              password         : ['', Validators.required],
+              parentEmail      : ['',  [
+                Validators.required,
+                Validators.email
+              ]],
+              email            : ['', [
+                Validators.required,
+                Validators.email
+              ]],
+              password         : ['', [
+                Validators.required,
+                Validators.minLength(6)
+              ]],
               passwordConfirm  : ['', Validators.required],
               agreements       : ['', Validators.requiredTrue]
-          }
+          },
+          {validator: CustomValidators.mustMatch('password', 'passwordConfirm')}
       );
+
+      this.classes$  = this._classesService.classes$;
+      this.schools$  = this._schoolsService.schools$;
   }
 
   // -----------------------------------------------------------------------------------------------------

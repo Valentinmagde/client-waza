@@ -43,6 +43,7 @@ import { UserProfileComponent } from './modules/user-dashboard/user-profile/user
 import { UserPurchaseHistoryComponent } from './modules/user-dashboard/user-purchase-history/user-purchase-history.component';
 import { UserReviewsComponent } from './modules/user-dashboard/user-reviews/user-reviews.component';
 import { UserSettingsComponent } from './modules/user-dashboard/user-settings/user-settings.component';
+import { ClassesResolver, SchoolsResolver } from './modules/auth/register/register.resolvers';
 
 const routes: Routes = [
     {path: '', component: HomeDemoOneComponent},
@@ -58,7 +59,14 @@ const routes: Routes = [
     {path: 'event-details', component: EventsDetailsPageComponent},
     {path: 'zoom-meetings', component: ZoomMeetingsPageComponent},
     {path: 'login', component: LoginPageComponent},
-    {path: 'register', component: RegisterPageComponent},
+    {
+        path: 'register', 
+        component: RegisterPageComponent,
+        resolve: {
+            classes: ClassesResolver,
+            schools: SchoolsResolver
+        }
+    },
     {path: 'faq', component: FaqPageComponent},
     {path: 'privacy-policy', component: PrivacyPolicyPageComponent},
     {path: 'terms-conditions', component: TermsConditionsPageComponent},
