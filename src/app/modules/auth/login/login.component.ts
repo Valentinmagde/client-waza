@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { timer } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { UserService } from 'src/app/core/user/user.service';
@@ -16,6 +17,7 @@ export class LoginPageComponent implements OnInit {
 
   signInForm: FormGroup = new FormGroup({});
   showAlert: boolean = false;
+  private readonly notifier: NotifierService;
 
   /**
    * Constructor
@@ -24,9 +26,11 @@ export class LoginPageComponent implements OnInit {
       private _activatedRoute: ActivatedRoute,
       private _authService: AuthService,
       private _userService: UserService,
+      notifierService: NotifierService,
       private _formBuilder: FormBuilder,
       private _router: Router
   ) {
+    this.notifier = notifierService;
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -40,7 +44,9 @@ export class LoginPageComponent implements OnInit {
       // Get the phone number of the latest emitted user
       let userName = '';
       this._userService.user$.subscribe((user) => {
-        userName = user.userName;
+        if(user){
+            userName = user.userName;
+        }
       });
 
       // Create the form
@@ -72,16 +78,18 @@ export class LoginPageComponent implements OnInit {
     .subscribe(
         (user) => {
             if(user.role){
+                this.notifier.notify('success', 'Utilisateur connecté avec succès!!');
                 let role = user.role
                 if(role.title === 'Parent'){
                     this._router.navigate(['instructor-dashboard']);
                 }
                 else{
-                    this._router.navigate(['user-dashboard']);
+                    this._router.navigate(['student-dashboard']);
                 }
             }
         },
         (error) => {
+            this.notifier.notify('error', error.error);
             const errorStatus = error.status;
 
             if (errorStatus === 423) {

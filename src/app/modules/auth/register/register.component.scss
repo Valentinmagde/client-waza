@@ -114,21 +114,6 @@
 	top: 1px;
 }
 
-.disable {
-	color: #ffffff;
-    background-color: #dddddd !important;
-	&:hover {
-		color: #ffffff;
-		&::after {
-			top: 0;
-			height: 0;
-			bottom: auto;
-			animation:none !important;
-			background-color: #dddddd !important;
-		}
-	}
-}
-
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
 

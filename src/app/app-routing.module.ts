@@ -37,13 +37,14 @@ import { PrivacyPolicyPageComponent } from './modules/pages/privacy-policy-page/
 import { RegisterPageComponent } from './modules/auth/register/register.component';
 import { TermsConditionsPageComponent } from './modules/pages/terms-conditions-page/terms-conditions-page.component';
 import { ZoomMeetingsPageComponent } from './modules/pages/zoom-meetings-page/zoom-meetings-page.component';
-import { UserCoursesComponent } from './modules/user-dashboard/user-courses/user-courses.component';
-import { UserDashboardComponent } from './modules/user-dashboard/user-dashboard/user-dashboard.component';
-import { UserProfileComponent } from './modules/user-dashboard/user-profile/user-profile.component';
-import { UserPurchaseHistoryComponent } from './modules/user-dashboard/user-purchase-history/user-purchase-history.component';
-import { UserReviewsComponent } from './modules/user-dashboard/user-reviews/user-reviews.component';
-import { UserSettingsComponent } from './modules/user-dashboard/user-settings/user-settings.component';
+import { UserCoursesComponent } from './modules/student-dashboard/student-courses/student-courses.component';
+import { StudentDashboardComponent } from './modules/student-dashboard/student-dashboard/student-dashboard.component';
+import { StudentProfileComponent } from './modules/student-dashboard/student-profile/student-profile.component';
+import { UserPurchaseHistoryComponent } from './modules/student-dashboard/student-purchase-history/student-purchase-history.component';
+import { UserReviewsComponent } from './modules/student-dashboard/student-reviews/student-reviews.component';
+import { UserSettingsComponent } from './modules/student-dashboard/student-settings/student-settings.component';
 import { ClassesResolver, SchoolsResolver } from './modules/auth/register/register.resolvers';
+import { CurrentUserResolver } from './modules/student-dashboard/student-navbar/student-navbar.resolvers';
 
 const routes: Routes = [
     {path: '', component: HomeDemoOneComponent},
@@ -83,13 +84,49 @@ const routes: Routes = [
     {path: 'admin-purchase-history', component: AdminPurchaseHistoryComponent},
     {path: 'admin-settings', component: AdminSettingsComponent},
 
-    // User dashboard
-    {path: 'user-dashboard', component: UserDashboardComponent},
-    {path: 'user-profile', component: UserProfileComponent},
-    {path: 'user-enrolled-courses', component: UserCoursesComponent},
-    {path: 'user-purchase-history', component: UserPurchaseHistoryComponent},
-    {path: 'user-settings', component: UserSettingsComponent},
-    {path: 'user-reviews', component: UserReviewsComponent},
+    // Student dashboard
+    {
+        path: 'student-dashboard', 
+        component: StudentDashboardComponent,
+        resolve: {
+            user: CurrentUserResolver,
+        }
+    },
+    {
+        path: 'student-profile', 
+        component: StudentProfileComponent,
+        resolve: {
+            user: CurrentUserResolver,
+        }
+    },
+    {
+        path: 'student-enrolled-courses', 
+        component: UserCoursesComponent,
+        resolve: {
+            user: CurrentUserResolver,
+        }
+    },
+    {
+        path: 'student-purchase-history', 
+        component: UserPurchaseHistoryComponent,
+        resolve: {
+            user: CurrentUserResolver,
+        }
+    },
+    {
+        path: 'student-settings', 
+        component: UserSettingsComponent,
+        resolve: {
+            user: CurrentUserResolver,
+        }
+    },
+    {
+        path: 'student-reviews', 
+        component: UserReviewsComponent,
+        resolve: {
+            user: CurrentUserResolver,
+        }
+    },
 
     // Instructor dashboard
     {path: 'instructor-dashboard', component: InstructorDashboardComponent},

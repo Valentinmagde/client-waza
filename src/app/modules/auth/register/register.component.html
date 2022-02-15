@@ -81,17 +81,17 @@
                                 <select 
                                     class="form-control form-select" 
                                     aria-label="Default select example"
-                                    [formControlName]="'level'">
+                                    [formControlName]="'class_id'">
                                     <option value="" disabled selected>Selectionnez une classe</option>
                                     <ng-container *ngIf="(classes$ |async) as classes">
                                         <ng-container *ngFor="let class of classes">
-                                            <option [value]="'class.id'">{{class.title}}</option>
+                                            <option [value]="class.id">{{class.title}}</option>
                                         </ng-container>
                                     </ng-container>
                                 </select>
-                                <div *ngIf="signUpForm.controls['level'].invalid && signUpForm.controls['level'].touched"
+                                <div *ngIf="signUpForm.controls['class_id'].invalid && signUpForm.controls['class_id'].touched"
                                 class="text-danger">
-                                    <div *ngIf="signUpForm.controls['level'].hasError('required')">
+                                    <div *ngIf="signUpForm.controls['class_id'].hasError('required')">
                                         La classe est obligatoire
                                     </div>
                                 </div>
@@ -118,17 +118,17 @@
                                 <select 
                                     class="form-control form-select" 
                                     aria-label="Default select example"
-                                    [formControlName]="'currentSchool'">
+                                    [formControlName]="'school_id'">
                                     <option value="" disabled selected>Selectionnez votre école</option>
                                     <ng-container *ngIf="(schools$ |async) as schools">
                                         <ng-container *ngFor="let school of schools">
-                                            <option [value]="'school.id'">{{school.name}}</option>
+                                            <option [value]="school.id">{{school.name}}</option>
                                         </ng-container>
                                     </ng-container>
                                 </select>
-                                <div *ngIf="signUpForm.controls['currentSchool'].invalid && signUpForm.controls['currentSchool'].touched"
+                                <div *ngIf="signUpForm.controls['school_id'].invalid && signUpForm.controls['school_id'].touched"
                                     class="text-danger">
-                                    <div *ngIf="signUpForm.controls['currentSchool'].hasError('required')">
+                                    <div *ngIf="signUpForm.controls['school_id'].hasError('required')">
                                         L'école est obligatoire
                                     </div>
                                 </div>

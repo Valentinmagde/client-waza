@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { NotifierService } from 'angular-notifier';
@@ -36,7 +36,7 @@ export class RegisterPageComponent implements OnInit {
       private _router: Router,
       notifierService: NotifierService,
       private _classesService: ClassesService,
-      private _schoolsService: SchoolsService
+      private _schoolsService: SchoolsService,
   )
   {
     this.notifier = notifierService;
@@ -57,9 +57,9 @@ export class RegisterPageComponent implements OnInit {
               firstName        : ['', Validators.required],
               userName         : ['', Validators.required],
               type             : ['', Validators.required],
-              level            : ['', Validators.required],
+              class_id         : ['', Validators.required],
               birthday         : ['', Validators.required],
-              currentSchool    : ['', Validators.required],
+              school_id        : ['', Validators.required],
               parentEmail      : ['',  [
                 Validators.required,
                 Validators.email
@@ -73,7 +73,8 @@ export class RegisterPageComponent implements OnInit {
                 Validators.minLength(6)
               ]],
               passwordConfirm  : ['', Validators.required],
-              agreements       : ['', Validators.requiredTrue]
+              agreements       : ['', Validators.requiredTrue],
+              url              : [window.location.href]
           },
           {validator: CustomValidators.mustMatch('password', 'passwordConfirm')}
       );
@@ -91,10 +92,10 @@ export class RegisterPageComponent implements OnInit {
   updateForm(): void {
 
     if(this.signUpForm.controls['type'].value === 'ELEVE'){
-      if(!this.signUpForm.controls['level']){
-        this.signUpForm.addControl('level', new FormControl(null, Validators.required));
+      if(!this.signUpForm.controls['class_id']){
+        this.signUpForm.addControl('class_id', new FormControl(null, Validators.required));
         this.signUpForm.addControl('birthday', new FormControl(null, Validators.required));
-        this.signUpForm.addControl('currentSchool', new FormControl(null, Validators.required));
+        this.signUpForm.addControl('school_id', new FormControl(null, Validators.required));
         this.signUpForm.addControl('parentEmail', new FormControl(null, Validators.required));
       }
 
@@ -104,9 +105,9 @@ export class RegisterPageComponent implements OnInit {
       if(!this.signUpForm.controls['email']){
         this.signUpForm.addControl('email', new FormControl(null, Validators.required));
       }
-      this.signUpForm.removeControl('level');
+      this.signUpForm.removeControl('class_id');
       this.signUpForm.removeControl('birthday');
-      this.signUpForm.removeControl('currentSchool');
+      this.signUpForm.removeControl('school_id');
       this.signUpForm.removeControl('parentEmail');
     }
   }
@@ -129,6 +130,12 @@ export class RegisterPageComponent implements OnInit {
         this.signUpForm.controls['birthday'].setValue(birthday.getTime()/1000);
       }
 
+      // Convert string id to integer
+      const classId = this.signUpForm.controls['class_id'].value
+      this.signUpForm.controls['class_id'].setValue(+classId);
+
+      const schoolId = this.signUpForm.controls['school_id'].value
+      this.signUpForm.controls['school_id'].setValue(+schoolId);
       // Sign up
       this._authService.signUp(this.signUpForm.value)
           .subscribe(

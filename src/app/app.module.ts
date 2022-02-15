@@ -61,13 +61,13 @@ import { AdminProfileComponent } from './modules/admin-dashboard/admin-profile/a
 import { AdminCoursesComponent } from './modules/admin-dashboard/admin-courses/admin-courses.component';
 import { AdminPurchaseHistoryComponent } from './modules/admin-dashboard/admin-purchase-history/admin-purchase-history.component';
 import { AdminSettingsComponent } from './modules/admin-dashboard/admin-settings/admin-settings.component';
-import { UserDashboardComponent } from './modules/user-dashboard/user-dashboard/user-dashboard.component';
-import { UserNavbarComponent } from './modules/user-dashboard/user-navbar/user-navbar.component';
-import { UserCoursesComponent } from './modules/user-dashboard/user-courses/user-courses.component';
-import { UserProfileComponent } from './modules/user-dashboard/user-profile/user-profile.component';
-import { UserPurchaseHistoryComponent } from './modules/user-dashboard/user-purchase-history/user-purchase-history.component';
-import { UserSettingsComponent } from './modules/user-dashboard/user-settings/user-settings.component';
-import { UserReviewsComponent } from './modules/user-dashboard/user-reviews/user-reviews.component';
+import { StudentDashboardComponent } from './modules/student-dashboard/student-dashboard/student-dashboard.component';
+import { UserNavbarComponent } from './modules/student-dashboard/student-navbar/student-navbar.component';
+import { UserCoursesComponent } from './modules/student-dashboard/student-courses/student-courses.component';
+import { StudentProfileComponent } from './modules/student-dashboard/student-profile/student-profile.component';
+import { UserPurchaseHistoryComponent } from './modules/student-dashboard/student-purchase-history/student-purchase-history.component';
+import { UserSettingsComponent } from './modules/student-dashboard/student-settings/student-settings.component';
+import { UserReviewsComponent } from './modules/student-dashboard/student-reviews/student-reviews.component';
 import { InstructorDashboardComponent } from './modules/instructor-dashboard/instructor-dashboard/instructor-dashboard.component';
 import { InstructorNavbarComponent } from './modules/instructor-dashboard/instructor-navbar/instructor-navbar.component';
 import { InstructorCoursesComponent } from './modules/instructor-dashboard/instructor-courses/instructor-courses.component';
@@ -178,10 +178,10 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
         AdminCoursesComponent,
         AdminPurchaseHistoryComponent,
         AdminSettingsComponent,
-        UserDashboardComponent,
+        StudentDashboardComponent,
         UserNavbarComponent,
         UserCoursesComponent,
-        UserProfileComponent,
+        StudentProfileComponent,
         UserPurchaseHistoryComponent,
         UserSettingsComponent,
         UserReviewsComponent,

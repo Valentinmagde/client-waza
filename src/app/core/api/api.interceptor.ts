@@ -39,13 +39,13 @@ export class ApiInterceptor implements HttpInterceptor {
                 // Format error response to expose errors array directly in the body
                 if (error instanceof HttpErrorResponse) {
                     // Create a custom error response because HttpErrorResponse.message is read only
-                    const newError = new CustomHttpErrorResponse({
-                        error: error.error,
-                        headers: error.headers,
-                        status: error.status,
-                        statusText: error.statusText,
-                        url: error.url || undefined
-                    });
+                    // const newError = new CustomHttpErrorResponse({
+                    //     error: error.error,
+                    //     headers: error.headers,
+                    //     status: error.status,
+                    //     statusText: error.statusText,
+                    //     url: error.url || undefined
+                    // });
 
                     // Add each error message followed by a new line to the custom message property
                     // newError.customMessage = newError.error.reduce((accumulator: any, current: any) => {
@@ -60,7 +60,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
                     //     return accumulator + `ERRORS.${scope}.${reason}` + '\n';
                     // }, '');
-                    return throwError(newError);
+                    return throwError(error);
                 }
 
                 return throwError(error);

@@ -19,7 +19,8 @@ export interface User {
     profile?: string;
     placeOfBirth?: string;
     sexe?: string;
-    dateOfBirth?: string;
+    birthday: string;
+    parentEmail: string;
 
     // Roles
     roles: Array<Role>;

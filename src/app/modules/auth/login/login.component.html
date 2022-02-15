@@ -4,6 +4,7 @@
 <div class="page-banner-area ptb-100">
     <div class="container">
         <div class="page-content">
+            <notifier-container></notifier-container>
             <h2>Connectez-vous à votre compte</h2>
             <ul class="pages-link">
                 <li><a routerLink="/">Accueil</a></li>
@@ -27,6 +28,12 @@
                                 class="form-control" 
                                 type="text"
                                 [formControlName]="'userName'">
+                            <div *ngIf="signInForm.controls['userName'].invalid && signInForm.controls['userName'].touched"
+                                class="text-danger">
+                                <div *ngIf="signInForm.controls['userName'].hasError('required')">
+                                    Le nom d'utilisateur est obligatoire
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md--12">
@@ -36,6 +43,12 @@
                                 class="form-control" 
                                 type="password" 
                                 [formControlName]="'password'">
+                            <div *ngIf="signInForm.controls['password'].invalid && signInForm.controls['password'].touched"
+                                class="text-danger">
+                                <div *ngIf="signInForm.controls['password'].hasError('required')">
+                                    Le mot de passe est obligatoire
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md--12">
@@ -50,7 +63,9 @@
                     <div class="col-lg-12 col-md--12">
                         <button 
                             class="default-btn"
-                            [disabled]="signInForm.disabled" 
+                            [disabled]="signInForm.disabled"
+                            [ngClass]="{'disable' : signInForm.disabled || signInForm.invalid}"
+                            [disabled]="signInForm.disabled || signInForm.invalid" 
                             (click)="signIn()">
                             Se connecter
                         </button>

@@ -65,12 +65,11 @@ export class AuthService {
     signIn(credentials: { userName: string; password: string }): Observable<any> {
         // Throw error, if the user is already logged in
         if (this._authenticated) {
-            return throwError('User is already logged in.');
+            return throwError('L\'utilisateur est déjà connecté.');
         }
 
         return this._httpClient.post('api/auth/login', credentials, { withCredentials: false }).pipe(
             switchMap((response: any)=>{
-                console.log(response);
                 // Store the access token in the local storage
                 this.accessToken = response.access_token;
 
@@ -80,6 +79,7 @@ export class AuthService {
                 // Store the user on the user service
                 this._userService.user = response.user;
                 
+                // Return a new observable with the response
                 return of(response);
             }),
         );
@@ -118,21 +118,19 @@ export class AuthService {
      * Sign out
      */
     signOut(): Observable<any> {
-        // Remove the access token from the local storage
-        localStorage.removeItem('accessToken');
+        return this._httpClient.get('api/auth/logout').pipe(
+            switchMap((response: any)=>{
+                // Remove the access token from the local storage
+                localStorage.removeItem('accessToken');
 
-        // Sign out from all social accounts
-        // this._socialAuthService.authState.subscribe((user) => {
-        //     if (user) {
-        //         this._socialAuthService.signOut(true).catch();
-        //     }
-        // });
-
-        // Set the authenticated flag to false
-        this._authenticated = false;
-
-        // Return the observable
-        return of(true);
+                console.log(response);
+                // Set the authenticated flag to false
+                this._authenticated = false;
+                
+                // Return the observable
+                return of(response);
+            }),
+        );
     }
 
     /**
