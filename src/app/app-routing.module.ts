@@ -45,6 +45,7 @@ import { UserReviewsComponent } from './modules/student-dashboard/student-review
 import { UserSettingsComponent } from './modules/student-dashboard/student-settings/student-settings.component';
 import { ClassesResolver, SchoolsResolver } from './modules/auth/register/register.resolvers';
 import { CurrentUserResolver } from './modules/student-dashboard/student-navbar/student-navbar.resolvers';
+import { CourseResolver } from './modules/student-dashboard/student-courses/student-courses.resolvers';
 
 const routes: Routes = [
     {path: '', component: HomeDemoOneComponent},
@@ -104,6 +105,7 @@ const routes: Routes = [
         component: UserCoursesComponent,
         resolve: {
             user: CurrentUserResolver,
+            courses: CourseResolver
         }
     },
     {

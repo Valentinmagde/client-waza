@@ -21,8 +21,16 @@
                     </li>
                     <!-- <li>
                         <span>Date de naissance</span>
-                        : {{user.birthday*1000 | date: 'dd/MM/yyyy}}
+                        : {{user.birthday}}
                     </li> -->
+                    <li>
+                        <span>Établissement</span>
+                        : {{user.school.name}}
+                    </li>
+                    <li>
+                        <span>Classe</span>
+                        : {{user.class.title}}
+                    </li>
                 </ul>
             </ng-container>
         </div>

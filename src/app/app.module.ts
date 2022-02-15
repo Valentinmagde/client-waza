@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -81,6 +81,11 @@ import { InstructorStudentsComponent } from './modules/instructor-dashboard/inst
 import { CoreModule } from './core/core.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
+
+const lang = 'fr-FR';
 
 /**
  * Custom angular notifier options
@@ -218,7 +223,10 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
         // Roles and permissions modules
         NgxPermissionsModule.forRoot()
     ],
-    providers: [],
+    providers: [
+      DatePipe,
+      { provide: LOCALE_ID, useValue: lang },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

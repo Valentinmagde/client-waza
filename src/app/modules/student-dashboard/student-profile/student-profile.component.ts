@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/user/user.service';
 import { User } from 'src/app/core/user/user.types';
 import { Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',

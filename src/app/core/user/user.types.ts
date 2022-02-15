@@ -1,14 +1,10 @@
 import { Role } from './roles.types';
+import { Classes } from '../classes/classes.types';
+import { Schools } from '../schools/schools.types';
 
 export interface User {
     // Personal id
     id: number;
-
-    // Foreign ids
-    localisationId?: number;
-    localisation?: Localisation;
-    clientId?: number;
-    client?: Client;
 
     // Personal information
     firstName: string;
@@ -25,28 +21,15 @@ export interface User {
     // Roles
     roles: Array<Role>;
 
-    // Address
-    country?: string;
-    town?: string;
-    street?: string;
-    address?: string;
-    address1?: string;
-
     // Booleans
     active: boolean;
-    principal: boolean;
 
     // Timestamps
     createdAt: number;
     updatedAt: number;
-    deletedAt: number;
-    isDeleted: number;
 
-    // Misc
-    name?: string;
-    avatar?: string;
-    status?: string;
-    language?: string;
+    class: Classes;
+    school: Schools;
 }
 
 interface Client {
