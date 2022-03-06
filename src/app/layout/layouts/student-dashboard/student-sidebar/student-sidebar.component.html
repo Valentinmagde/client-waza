@@ -1,0 +1,18 @@
+<!-- Sidebar Menu -->
+<div class="db-left-sidebar-area" [class.active]="sidebarSwitcherClassApplied">
+    <ul>
+        <li><a [routerLink]="['student-dashboard']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="ri-dashboard-line"></i> Tableau de bord</a></li>
+        <li><a [routerLink]="['student-profile']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="ri-user-line"></i> Mon Profil</a></li>
+        <li><a [routerLink]="['student-enrolled-courses']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="ri-book-open-line"></i> Mes Cours</a></li>
+        <li><a [routerLink]="['student-reviews']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="ri-shape-line"></i> Revues</a></li>
+        <li><a [routerLink]="['student-settings']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="ri-settings-3-line"></i> Paramètres</a></li>
+        <li><a class="cursor-pointer" (click)="signOut()"><i class="ri-logout-circle-r-line"></i> Déconnexion</a></li>
+    </ul>
+    <button class="navbar-toggler" type="button" (click)="sidebarSwitcherToggleClass()">
+        <span class="burger-menu">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </span>
+    </button>
+</div>

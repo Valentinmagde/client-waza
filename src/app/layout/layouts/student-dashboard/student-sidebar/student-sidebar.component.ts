@@ -1,36 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { UserService } from 'src/app/core/user/user.service';
+import { User } from 'src/app/core/user/user.types';
 
 @Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss']
+    selector: 'app-student-sidebar',
+    templateUrl: './student-sidebar.component.html',
+    styleUrls: ['./student-sidebar.component.scss']
 })
-export class NavbarComponent implements OnInit {
-    isLogged: boolean = false;
+export class StudentSidebarComponent implements OnInit {
+    user$: Observable<User> = Observable.create();
     private readonly notifier: NotifierService;
     constructor(
-        public _router: Router,
+        private _userService: UserService,
         private _authService: AuthService,
+        private _router: Router,
         notifierService: NotifierService,
     ) { 
         this.notifier = notifierService;
     }
 
     ngOnInit(): void {
-        /**
-         * Check the authentication status
-         */
-        this._authService.check().subscribe(
-            (response)=>{
-                this.isLogged = response;
-            },
-            (error) => {
-                this.notifier.notify('error', error.error);
-            }
-        );
+        this.user$ = this._userService.user$
     }
 
     switcherClassApplied = false;
@@ -38,9 +32,9 @@ export class NavbarComponent implements OnInit {
         this.switcherClassApplied = !this.switcherClassApplied;
     }
 
-    classApplied = false;
-    toggleClass() {
-        this.classApplied = !this.classApplied;
+    sidebarSwitcherClassApplied = false;
+    sidebarSwitcherToggleClass() {
+        this.sidebarSwitcherClassApplied = !this.sidebarSwitcherClassApplied;
     }
 
     /**
@@ -57,5 +51,4 @@ export class NavbarComponent implements OnInit {
             }
         );
     }
-
 }

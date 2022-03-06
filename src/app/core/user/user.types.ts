@@ -13,7 +13,6 @@ export interface User {
     phone: string;
     email?: string;
     profile?: string;
-    placeOfBirth?: string;
     sexe?: string;
     birthday: string;
     parentEmail: string;

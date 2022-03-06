@@ -13,6 +13,7 @@ export class StudentProfileComponent implements OnInit {
   user$: Observable<User> = Observable.create();
   constructor(
     private _userService: UserService,
+    public datepipe: DatePipe
   ) { }
 
   ngOnInit(): void {

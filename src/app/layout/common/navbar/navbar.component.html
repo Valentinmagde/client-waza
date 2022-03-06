@@ -3,7 +3,7 @@
     <!-- Top Header -->
     <div 
         class="top-header"
-        [ngClass]="{'style-two' : router?.url === '/index-3', 'bg-color' : router?.url === '/index-2'}"
+        [ngClass]="{'style-two' : _router?.url === '/index-3', 'bg-color' : _router?.url === '/index-2'}"
     >
         <div class="container">
             <div class="row align-items-center">
@@ -25,18 +25,28 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <ul class="header-right-content">
-                        <li>
-                            <a routerLink="/login">
-                                <i class="ri-login-circle-line"></i>
-                                Connexion
-                            </a>
-                        </li>
-                        <li>
-                            <a routerLink="/register">
-                                <i class="ri-lock-line"></i>
-                                S'inscrire
-                            </a>
-                        </li>
+                        <ng-container *ngIf="!isLogged">
+                            <li>
+                                <a routerLink="/login">
+                                    <i class="ri-login-circle-line"></i>
+                                    Connexion
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/register">
+                                    <i class="ri-lock-line"></i>
+                                    S'inscrire
+                                </a>
+                            </li>
+                        </ng-container>
+                        <ng-container *ngIf="isLogged">
+                            <li>
+                                <a class="cursor-pointer" (click)="signOut()">
+                                    <i class="ri-logout-circle-r-line"></i> 
+                                    Déconnexion
+                                </a>
+                            </li>
+                        </ng-container>
                         <li>
                             <div class="navbar-option-item navbar-option-language dropdown language-option" [class.active]="switcherClassApplied"> 
                                 <button class="dropdown-toggle" type="button" (click)="switcherToggleClass()">
@@ -62,7 +72,7 @@
         class="navbar-area" 
         stickyClass="sticky-box-shadow" 
         ngStickyNav 
-        [ngClass]="{'bg-color-f5f1ee' : router?.url === '/index-3'}"
+        [ngClass]="{'bg-color-f5f1ee' : _router?.url === '/index-3'}"
     >
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light" [class.active]="classApplied">

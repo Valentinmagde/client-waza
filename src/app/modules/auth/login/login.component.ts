@@ -84,7 +84,7 @@ export class LoginPageComponent implements OnInit {
                     this._router.navigate(['instructor-dashboard']);
                 }
                 else{
-                    this._router.navigate(['student-dashboard']);
+                    this._router.navigate(['student']);
                 }
             }
         },

@@ -90,7 +90,7 @@ export class AuthService {
      */
     signInUsingToken(): Observable<any> {
         // Renew token
-        return this._httpClient.post('api/user/refresh/token', {}, { withCredentials: false })
+        return this._httpClient.post('api/auth/refresh', {}, { withCredentials: false })
             .pipe(
                 catchError(() =>
 
@@ -161,7 +161,7 @@ export class AuthService {
         }
 
         // Check the access token availability
-        if (!this.accessToken) {
+        if (!this.accessToken && this.accessToken !== 'undefined') {
             return of(false);
         }
 

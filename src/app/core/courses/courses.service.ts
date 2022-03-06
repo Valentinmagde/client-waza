@@ -59,6 +59,17 @@ export class CoursesService {
     /**
      * Get all courses
      */
+     getById(courseId: string): Observable<Courses> {
+        return this._httpClient.get<Courses>(`api/course/${courseId}`).pipe(
+            tap((response) => {
+                this._course.next(response);
+            })
+        );
+    }
+
+    /**
+     * Get all courses
+     */
     getAll(): Observable<Courses[]> {
         return this._httpClient.get<Courses[]>('api/courses').pipe(
             tap((response) => {

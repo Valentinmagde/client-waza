@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './student-courses.component.html',
   styleUrls: ['./student-courses.component.scss']
 })
-export class UserCoursesComponent implements OnInit {
+export class StudentCoursesComponent implements OnInit {
   courses$: Observable<Courses[]> = Observable.create();
   constructor(
     private _courseService: CoursesService

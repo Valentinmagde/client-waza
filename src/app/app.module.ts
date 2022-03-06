@@ -12,7 +12,7 @@ import { AccordionModule } from "ngx-accordion";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeDemoOneComponent } from './modules/pages/home-demo-one/home-demo-one.component';
+import { HomeComponent } from './modules/home/home.component';
 import { HomeDemoTwoComponent } from './modules/pages/home-demo-two/home-demo-two.component';
 import { HomeDemoThreeComponent } from './modules/pages/home-demo-three/home-demo-three.component';
 import { FooterComponent } from './layout/common/footer/footer.component';
@@ -29,7 +29,7 @@ import { PartnerComponent } from './layout/common/partner/partner.component';
 import { CoursesComponent } from './layout/common/courses/courses.component';
 import { CategoriesComponent } from './layout/common/categories/categories.component';
 import { FeaturesComponent } from './layout/common/features/features.component';
-import { HomeoneBannerComponent } from './modules/pages/home-demo-one/homeone-banner/homeone-banner.component';
+import { HomeBannerComponent } from './modules/home/home-banner/home-banner.component';
 import { AboutComponent } from './layout/common/about/about.component';
 import { HometwoBannerComponent } from './modules/pages/home-demo-two/hometwo-banner/hometwo-banner.component';
 import { FaqComponent } from './layout/common/faq/faq.component';
@@ -61,10 +61,8 @@ import { AdminProfileComponent } from './modules/admin-dashboard/admin-profile/a
 import { AdminCoursesComponent } from './modules/admin-dashboard/admin-courses/admin-courses.component';
 import { AdminPurchaseHistoryComponent } from './modules/admin-dashboard/admin-purchase-history/admin-purchase-history.component';
 import { AdminSettingsComponent } from './modules/admin-dashboard/admin-settings/admin-settings.component';
-import { StudentDashboardComponent } from './modules/student-dashboard/student-dashboard/student-dashboard.component';
-import { UserNavbarComponent } from './modules/student-dashboard/student-navbar/student-navbar.component';
-import { UserCoursesComponent } from './modules/student-dashboard/student-courses/student-courses.component';
-import { StudentProfileComponent } from './modules/student-dashboard/student-profile/student-profile.component';
+// import { StudentNavbarComponent } from './layout/layouts/student-dashboard/student-navbar/student-navbar.component';
+import { StudentCoursesComponent } from './modules/student-dashboard/student-courses/student-courses.component';
 import { UserPurchaseHistoryComponent } from './modules/student-dashboard/student-purchase-history/student-purchase-history.component';
 import { UserSettingsComponent } from './modules/student-dashboard/student-settings/student-settings.component';
 import { UserReviewsComponent } from './modules/student-dashboard/student-reviews/student-reviews.component';
@@ -83,6 +81,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { StudentDashboardModule } from './modules/student-dashboard/student-dashboard/student-dashboard.module';
+import { LayoutModule } from './layout/layouts/layout.module';
 registerLocaleData(localeFr);
 
 const lang = 'fr-FR';
@@ -134,7 +134,7 @@ const lang = 'fr-FR';
 @NgModule({
     declarations: [
         AppComponent,
-        HomeDemoOneComponent,
+        HomeComponent,
         HomeDemoTwoComponent,
         HomeDemoThreeComponent,
         FooterComponent,
@@ -151,7 +151,7 @@ const lang = 'fr-FR';
         CoursesComponent,
         CategoriesComponent,
         FeaturesComponent,
-        HomeoneBannerComponent,
+        HomeBannerComponent,
         AboutComponent,
         HometwoBannerComponent,
         FaqComponent,
@@ -183,10 +183,8 @@ const lang = 'fr-FR';
         AdminCoursesComponent,
         AdminPurchaseHistoryComponent,
         AdminSettingsComponent,
-        StudentDashboardComponent,
-        UserNavbarComponent,
-        UserCoursesComponent,
-        StudentProfileComponent,
+        // StudentNavbarComponent,
+        // StudentCoursesComponent,
         UserPurchaseHistoryComponent,
         UserSettingsComponent,
         UserReviewsComponent,
@@ -214,7 +212,10 @@ const lang = 'fr-FR';
         StickyNavModule,
         CountUpModule,
         NotifierModule.withConfig(customNotifierOptions),
+        StudentDashboardModule,
 
+        // Layout module of your application
+        LayoutModule,
         // Core module of your application
         CoreModule,
 

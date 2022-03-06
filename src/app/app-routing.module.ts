@@ -26,7 +26,7 @@ import { CoursesPageComponent } from './modules/pages/courses-page/courses-page.
 import { EventsDetailsPageComponent } from './modules/pages/events-details-page/events-details-page.component';
 import { EventsPageComponent } from './modules/pages/events-page/events-page.component';
 import { FaqPageComponent } from './modules/pages/faq-page/faq-page.component';
-import { HomeDemoOneComponent } from './modules/pages/home-demo-one/home-demo-one.component';
+import { HomeComponent } from './modules/home/home.component';
 import { HomeDemoThreeComponent } from './modules/pages/home-demo-three/home-demo-three.component';
 import { HomeDemoTwoComponent } from './modules/pages/home-demo-two/home-demo-two.component';
 import { InstructorsPageComponent } from './modules/pages/instructors-page/instructors-page.component';
@@ -37,18 +37,16 @@ import { PrivacyPolicyPageComponent } from './modules/pages/privacy-policy-page/
 import { RegisterPageComponent } from './modules/auth/register/register.component';
 import { TermsConditionsPageComponent } from './modules/pages/terms-conditions-page/terms-conditions-page.component';
 import { ZoomMeetingsPageComponent } from './modules/pages/zoom-meetings-page/zoom-meetings-page.component';
-import { UserCoursesComponent } from './modules/student-dashboard/student-courses/student-courses.component';
-import { StudentDashboardComponent } from './modules/student-dashboard/student-dashboard/student-dashboard.component';
-import { StudentProfileComponent } from './modules/student-dashboard/student-profile/student-profile.component';
 import { UserPurchaseHistoryComponent } from './modules/student-dashboard/student-purchase-history/student-purchase-history.component';
 import { UserReviewsComponent } from './modules/student-dashboard/student-reviews/student-reviews.component';
 import { UserSettingsComponent } from './modules/student-dashboard/student-settings/student-settings.component';
 import { ClassesResolver, SchoolsResolver } from './modules/auth/register/register.resolvers';
-import { CurrentUserResolver } from './modules/student-dashboard/student-navbar/student-navbar.resolvers';
+import { CurrentUserResolver } from './layout/layouts/student-dashboard/student-navbar/student-navbar.resolvers';
 import { CourseResolver } from './modules/student-dashboard/student-courses/student-courses.resolvers';
+import { LayoutComponent } from './layout/layouts/layout.component';
 
 const routes: Routes = [
-    {path: '', component: HomeDemoOneComponent},
+    {path: '', component: HomeComponent},
     {path: 'index-2', component: HomeDemoTwoComponent},
     {path: 'index-3', component: HomeDemoThreeComponent},
     {path: 'courses', component: CoursesPageComponent},
@@ -87,47 +85,41 @@ const routes: Routes = [
 
     // Student dashboard
     {
-        path: 'student-dashboard', 
-        component: StudentDashboardComponent,
+        path: 'student',
+        component: LayoutComponent,
+        data: {
+            layout: 'student'
+        },
         resolve: {
             user: CurrentUserResolver,
-        }
-    },
-    {
-        path: 'student-profile', 
-        component: StudentProfileComponent,
-        resolve: {
-            user: CurrentUserResolver,
-        }
-    },
-    {
-        path: 'student-enrolled-courses', 
-        component: UserCoursesComponent,
-        resolve: {
-            user: CurrentUserResolver,
-            courses: CourseResolver
-        }
-    },
-    {
-        path: 'student-purchase-history', 
-        component: UserPurchaseHistoryComponent,
-        resolve: {
-            user: CurrentUserResolver,
-        }
-    },
-    {
-        path: 'student-settings', 
-        component: UserSettingsComponent,
-        resolve: {
-            user: CurrentUserResolver,
-        }
-    },
-    {
-        path: 'student-reviews', 
-        component: UserReviewsComponent,
-        resolve: {
-            user: CurrentUserResolver,
-        }
+        },
+        children: [
+            { path: '', pathMatch: 'full', redirectTo: 'student-dashboard' },
+            {
+                path: 'student-dashboard',
+                loadChildren: () => import('src/app/modules/student-dashboard/student-dashboard/student-dashboard.module').then(m => m.StudentDashboardModule)
+            },
+            {
+                path: 'student-profile',
+                loadChildren: () => import('src/app/modules/student-dashboard/student-profile/student-profile.module').then(m => m.StudentProfileModule)
+            },
+            {
+                path: 'student-enrolled-courses', 
+                loadChildren: () => import('src/app/modules/student-dashboard/student-courses/student-courses.module').then(m => m.StudentCourseModule)
+            },
+            {
+                path: 'student-purchase-history', 
+                component: UserPurchaseHistoryComponent,
+            },
+            {
+                path: 'student-settings', 
+                component: UserSettingsComponent
+            },
+            {
+                path: 'student-reviews', 
+                component: UserReviewsComponent,
+            },
+        ]
     },
 
     // Instructor dashboard

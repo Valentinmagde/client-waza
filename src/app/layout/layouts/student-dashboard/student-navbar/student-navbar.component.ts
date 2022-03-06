@@ -7,11 +7,11 @@ import { UserService } from 'src/app/core/user/user.service';
 import { User } from 'src/app/core/user/user.types';
 
 @Component({
-    selector: 'app-user-navbar',
+    selector: 'app-student-navbar',
     templateUrl: './student-navbar.component.html',
     styleUrls: ['./student-navbar.component.scss']
 })
-export class UserNavbarComponent implements OnInit {
+export class StudentNavbarComponent implements OnInit {
     user$: Observable<User> = Observable.create();
     private readonly notifier: NotifierService;
     constructor(
@@ -24,7 +24,7 @@ export class UserNavbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.user$ = this._userService.user$;
+        this.user$ = this._userService.user$
     }
 
     switcherClassApplied = false;
@@ -50,5 +50,5 @@ export class UserNavbarComponent implements OnInit {
                 this.notifier.notify('error', error.error);
             }
         );
-     }
+    }
 }
