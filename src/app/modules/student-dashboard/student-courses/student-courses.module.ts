@@ -8,6 +8,7 @@ import { NgxScrollTopModule } from "ngx-scrolltop";
 import { NgxSimpleCountdownModule } from "ngx-simple-countdown";
 import { TabsModule } from "ngx-tabset";
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CoursesContentsComponent } from "./courses-contents/courses-contents.component";
 import { CoursesDetailsComponent } from "./courses-details/courses-details.component";
 import { StudentCoursesComponent } from "./student-courses.component";
 import { studentCourseRoutes } from "./student-courses.routing";
@@ -15,7 +16,8 @@ import { studentCourseRoutes } from "./student-courses.routing";
 @NgModule({
     declarations: [
         StudentCoursesComponent,
-        CoursesDetailsComponent
+        CoursesDetailsComponent,
+        CoursesContentsComponent
     ],
     imports: [
         RouterModule.forChild(studentCourseRoutes),

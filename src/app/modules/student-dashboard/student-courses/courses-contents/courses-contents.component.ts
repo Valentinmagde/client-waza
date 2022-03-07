@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { CoursesService } from 'src/app/core/courses/courses.service';
 import { Courses } from 'src/app/core/courses/courses.types';
 
 @Component({
-	selector: 'student-courses-details',
-	templateUrl: './courses-details.component.html',
-	styleUrls: ['./courses-details.component.scss']
+	selector: 'student-courses-contents',
+	templateUrl: './courses-contents.component.html',
+	styleUrls: ['./courses-contents.component.scss']
 })
-export class CoursesDetailsComponent implements OnInit {
+export class CoursesContentsComponent implements OnInit {
 	course$: Observable<Courses> = Observable.create();
 	course: Courses = {} as Courses;
 	constructor(
 		private _courseService: CoursesService,
-		private _router: Router,
 	) { }
 
 	ngOnInit(): void {
@@ -32,12 +30,4 @@ export class CoursesDetailsComponent implements OnInit {
 		smartSpeed: 1000,
 		autoplayHoverPause: true
     }
-
-	/**
-	 * Navigate to course content
-	 */
-	 navigateToCourseContent(courseId:number): void
-	 {
-		this._router.navigate(['contents', courseId]);
-	 }
 }

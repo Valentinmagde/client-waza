@@ -12,7 +12,7 @@
                             <ng-container *ngFor="let course of courses">
                                 <div class="col-xl-3 col-sm-6">
                                     <div class="single-course-item">
-                                        <a [routerLink]="[course.id]" class="courses-img">
+                                        <a [routerLink]="['details', course.id]" class="courses-img">
                                             <img src="assets/images/courses/course-1.jpg" alt="Image">
                                             <span class="levels">{{course.level}}</span>
                                             <!-- <span class="price">$25.00</span> -->

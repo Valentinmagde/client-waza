@@ -2,6 +2,197 @@
 <div class="db-main-content-area">
     <div class="container-fluid">
         <div class="row">
+            
+            <div class="col-lg-4 mt-100 pt-30">
+                <div class="widget-sidebar ml-15 pt-100 pb-70">
+                    <ng-container *ngIf="(course$|async) as course">
+                        <div class="sidebar-widget video-courses">
+                            <div class="courses-video-img">
+                                <img src="assets/images/courses-video-img.png" alt="Image">
+                            </div>
+                            <div class="price-status">
+                                <h4>Ce cours comprend:</h4>
+                                <ul class="in-price-list">
+                                    <li>7 heures de vidéo</li>
+                                    <li>22 ressources téléchargeables</li>
+                                    <li>7 lectures</li>
+                                    <li>Accès complet à vie</li>
+                                    <li>Accès sur n'importe quel appareil</li>
+                                    <li>Certificat d'achèvement</li>
+                                </ul>
+                                <ul class="cart-wish-btn d-flex justify-content-between align-items-center">
+                                    <li>
+                                        <button class="default-btn">
+                                            Commencer le cours
+                                        </button>
+                                    </li>
+                                </ul>
+                                <ul class="social-link">
+                                    <li><span>Partager ce cours:</span></li>
+                                    <li><a href="#" target="_blank"><i class="ri-facebook-fill"></i></a></li>
+                                    <!-- <li><a href="#" target="_blank"><i class="ri-instagram-line"></i></a></li> -->
+                                    <li><a href="#" target="_blank"><i class="ri-linkedin-fill"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="ri-twitter-line"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- <div class="sidebar-widget related-courses">
+                        <h3>Related Courses</h3>
+                        <div class="related-courses-slider">
+                            <owl-carousel-o [options]="relatedCoursesSlides">
+                                <ng-template carouselSlide>
+                                    <div class="single-course-item">
+                                        <a routerLink="/courses-details" class="courses-img">
+                                            <img src="assets/images/courses/course-1.jpg" alt="Image">
+                                            <span class="levels">All Levels</span>
+                                            <span class="price">$25.00</span>
+                                            <button type="submit" class="wishlist"><i class="ri-heart-line"></i></button>
+                                        </a>
+                                        <div class="courses-content">
+                                            <h3>
+                                                <a routerLink="/courses-details">
+                                                    Complete Guideline From Zero To Hero In Web Development
+                                                </a>
+                                            </h3>
+                                            <ul class="review">
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><span>5.00(15)</span></li>
+                                            </ul>
+                                            <ul class="status d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <i class="ri-time-line"></i>
+                                                    7 Total hours
+                                                </li>
+                                                <li>
+                                                    <i class="ri-user-add-line"></i>
+                                                    12 Students
+                                                </li>
+                                            </ul>
+                                            <ul class="author d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <a routerLink="/author">
+                                                        <img src="assets/images/courses/user-1.jpg" alt="">
+                                                        By: Sullivan
+                                                    </a>
+                                                </li>
+                                                <li class="cart-btn">
+                                                    <button type="submit" class="add-btn">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                        <span>Add To Cart</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template carouselSlide>
+                                    <div class="single-course-item">
+                                        <a routerLink="/courses-details" class="courses-img">
+                                            <img src="assets/images/courses/course-2.jpg" alt="Image">
+                                            <span class="levels">All Levels</span>
+                                            <span class="price">Free</span>
+                                            <button type="submit" class="wishlist"><i class="ri-heart-line"></i></button>
+                                        </a>
+                                        <div class="courses-content">
+                                            <h3>
+                                                <a routerLink="/courses-details">
+                                                    Successful Course: Robot Humanoid Walk An Upstairs Success
+                                                </a>
+                                            </h3>
+                                            <ul class="review">
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-line"></i></li>
+                                                <li><span>4.00(20)</span></li>
+                                            </ul>
+                                            <ul class="status d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <i class="ri-time-line"></i>
+                                                    3 Total hours
+                                                </li>
+                                                <li>
+                                                    <i class="ri-user-add-line"></i>
+                                                    416 Students
+                                                </li>
+                                            </ul>
+                                            <ul class="author d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <a routerLink="/author">
+                                                        <img src="assets/images/courses/user-2.jpg" alt="Image">
+                                                        By: Burton
+                                                    </a>
+                                                </li>
+                                                <li class="cart-btn">
+                                                    <button type="submit" class="add-btn">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                        <span>Add To Cart</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template carouselSlide>
+                                    <div class="single-course-item">
+                                        <a routerLink="/courses-details" class="courses-img">
+                                            <img src="assets/images/courses/course-3.jpg" alt="Image">
+                                            <span class="levels">All Levels</span>
+                                            <span class="price">$30.00</span>
+                                            <button type="submit" class="wishlist"><i class="ri-heart-line"></i></button>
+                                        </a>
+                                        <div class="courses-content">
+                                            <h3>
+                                                <a routerLink="/courses-details">
+                                                    Graphic Design Masterclass: Graphic Design Course A-z
+                                                </a>
+                                            </h3>
+                                            <ul class="review">
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-fill"></i></li>
+                                                <li><i class="ri-star-line"></i></li>
+                                                <li><span>4.5(12)</span></li>
+                                            </ul>
+                                            <ul class="status d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <i class="ri-time-line"></i>
+                                                    4 Total hours
+                                                </li>
+                                                <li>
+                                                    <i class="ri-user-add-line"></i>
+                                                    99 Students
+                                                </li>
+                                            </ul>
+                                            <ul class="author d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <a routerLink="/author">
+                                                        <img src="assets/images/courses/user-3.jpg" alt="Image">
+                                                        By: Rosemarie
+                                                    </a>
+                                                </li>
+                                                <li class="cart-btn">
+                                                    <button type="submit" class="add-btn">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                        <span>Add To Cart</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </owl-carousel-o>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
             <div class="col-lg-8 col-md-12">
                 <div class="overview">
                     <ngx-tabset>
@@ -355,197 +546,6 @@
                             </div>
                         </ngx-tab>
                     </ngx-tabset>
-                </div>
-            </div>
-            <div class="col-lg-4 mt-100 pt-30">
-                <div class="widget-sidebar ml-15 pt-100 pb-70">
-                    <ng-container *ngIf="(course$|async) as course">
-                        <div class="sidebar-widget video-courses">
-                            <div class="courses-video-img">
-                                <img src="assets/images/courses-video-img.png" alt="Image">
-                            </div>
-                            <div class="price-status">
-                                <h4>Ce cours comprend:</h4>
-                                <ul class="in-price-list">
-                                    <li>7 heures de vidéo</li>
-                                    <li>22 ressources téléchargeables</li>
-                                    <li>7 lectures</li>
-                                    <li>Accès complet à vie</li>
-                                    <li>Accès sur n'importe quel appareil</li>
-                                    <li>Certificat d'achèvement</li>
-                                </ul>
-                                <ul class="cart-wish-btn d-flex justify-content-between align-items-center">
-                                    <li>
-                                        <a [routerLink]="['contents']">
-                                        <button class="default-btn">
-                                            Commencer le cours
-                                        </button></a>
-                                    </li>
-                                </ul>
-                                <ul class="social-link">
-                                    <li><span>Partager ce cours:</span></li>
-                                    <li><a href="#" target="_blank"><i class="ri-facebook-fill"></i></a></li>
-                                    <!-- <li><a href="#" target="_blank"><i class="ri-instagram-line"></i></a></li> -->
-                                    <li><a href="#" target="_blank"><i class="ri-linkedin-fill"></i></a></li>
-                                    <li><a href="#" target="_blank"><i class="ri-twitter-line"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- <div class="sidebar-widget related-courses">
-                        <h3>Related Courses</h3>
-                        <div class="related-courses-slider">
-                            <owl-carousel-o [options]="relatedCoursesSlides">
-                                <ng-template carouselSlide>
-                                    <div class="single-course-item">
-                                        <a routerLink="/courses-details" class="courses-img">
-                                            <img src="assets/images/courses/course-1.jpg" alt="Image">
-                                            <span class="levels">All Levels</span>
-                                            <span class="price">$25.00</span>
-                                            <button type="submit" class="wishlist"><i class="ri-heart-line"></i></button>
-                                        </a>
-                                        <div class="courses-content">
-                                            <h3>
-                                                <a routerLink="/courses-details">
-                                                    Complete Guideline From Zero To Hero In Web Development
-                                                </a>
-                                            </h3>
-                                            <ul class="review">
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><span>5.00(15)</span></li>
-                                            </ul>
-                                            <ul class="status d-flex justify-content-between align-items-center">
-                                                <li>
-                                                    <i class="ri-time-line"></i>
-                                                    7 Total hours
-                                                </li>
-                                                <li>
-                                                    <i class="ri-user-add-line"></i>
-                                                    12 Students
-                                                </li>
-                                            </ul>
-                                            <ul class="author d-flex justify-content-between align-items-center">
-                                                <li>
-                                                    <a routerLink="/author">
-                                                        <img src="assets/images/courses/user-1.jpg" alt="">
-                                                        By: Sullivan
-                                                    </a>
-                                                </li>
-                                                <li class="cart-btn">
-                                                    <button type="submit" class="add-btn">
-                                                        <i class="ri-shopping-cart-line"></i>
-                                                        <span>Add To Cart</span>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                                <ng-template carouselSlide>
-                                    <div class="single-course-item">
-                                        <a routerLink="/courses-details" class="courses-img">
-                                            <img src="assets/images/courses/course-2.jpg" alt="Image">
-                                            <span class="levels">All Levels</span>
-                                            <span class="price">Free</span>
-                                            <button type="submit" class="wishlist"><i class="ri-heart-line"></i></button>
-                                        </a>
-                                        <div class="courses-content">
-                                            <h3>
-                                                <a routerLink="/courses-details">
-                                                    Successful Course: Robot Humanoid Walk An Upstairs Success
-                                                </a>
-                                            </h3>
-                                            <ul class="review">
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-line"></i></li>
-                                                <li><span>4.00(20)</span></li>
-                                            </ul>
-                                            <ul class="status d-flex justify-content-between align-items-center">
-                                                <li>
-                                                    <i class="ri-time-line"></i>
-                                                    3 Total hours
-                                                </li>
-                                                <li>
-                                                    <i class="ri-user-add-line"></i>
-                                                    416 Students
-                                                </li>
-                                            </ul>
-                                            <ul class="author d-flex justify-content-between align-items-center">
-                                                <li>
-                                                    <a routerLink="/author">
-                                                        <img src="assets/images/courses/user-2.jpg" alt="Image">
-                                                        By: Burton
-                                                    </a>
-                                                </li>
-                                                <li class="cart-btn">
-                                                    <button type="submit" class="add-btn">
-                                                        <i class="ri-shopping-cart-line"></i>
-                                                        <span>Add To Cart</span>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                                <ng-template carouselSlide>
-                                    <div class="single-course-item">
-                                        <a routerLink="/courses-details" class="courses-img">
-                                            <img src="assets/images/courses/course-3.jpg" alt="Image">
-                                            <span class="levels">All Levels</span>
-                                            <span class="price">$30.00</span>
-                                            <button type="submit" class="wishlist"><i class="ri-heart-line"></i></button>
-                                        </a>
-                                        <div class="courses-content">
-                                            <h3>
-                                                <a routerLink="/courses-details">
-                                                    Graphic Design Masterclass: Graphic Design Course A-z
-                                                </a>
-                                            </h3>
-                                            <ul class="review">
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-fill"></i></li>
-                                                <li><i class="ri-star-line"></i></li>
-                                                <li><span>4.5(12)</span></li>
-                                            </ul>
-                                            <ul class="status d-flex justify-content-between align-items-center">
-                                                <li>
-                                                    <i class="ri-time-line"></i>
-                                                    4 Total hours
-                                                </li>
-                                                <li>
-                                                    <i class="ri-user-add-line"></i>
-                                                    99 Students
-                                                </li>
-                                            </ul>
-                                            <ul class="author d-flex justify-content-between align-items-center">
-                                                <li>
-                                                    <a routerLink="/author">
-                                                        <img src="assets/images/courses/user-3.jpg" alt="Image">
-                                                        By: Rosemarie
-                                                    </a>
-                                                </li>
-                                                <li class="cart-btn">
-                                                    <button type="submit" class="add-btn">
-                                                        <i class="ri-shopping-cart-line"></i>
-                                                        <span>Add To Cart</span>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </owl-carousel-o>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
