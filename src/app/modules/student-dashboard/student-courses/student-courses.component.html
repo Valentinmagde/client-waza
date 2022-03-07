@@ -20,7 +20,7 @@
                                         </a>
                                         <div class="courses-content">
                                             <h3>
-                                                <a routerLink="/courses-details">
+                                                <a [routerLink]="['details', course.id]">
                                                    {{course.chapterTitle}}
                                                 </a>
                                             </h3>
